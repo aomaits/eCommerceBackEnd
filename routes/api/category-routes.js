@@ -47,6 +47,7 @@ router.post('/', async (req, res) => {
 });
 
 // TODO Fix this as well, generatedMessage: false
+// something in the where statement? Now it's giving a 200 status but not updating...
 router.put('/:id', async (req, res) => {
   // update a category by its `id` value
   try {
