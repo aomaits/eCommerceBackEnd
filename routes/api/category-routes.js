@@ -7,10 +7,8 @@ router.get('/', async (req, res) => {
   try {
     // find all categories, including associated products
     const categoriesData = await Category.findAll(
-      // JOIN with product, using the ProductTag through table
-
-      // TODO - INCORRECT FORMATTING, BAD REQUEST
-      // {include: [{ model: Product, through: ProductTag, as: 'categories_assoc_prodcts'}]}
+      // JOIN with product
+      {include: [{ model: Product }]}
   );
     res.status(200).json(categoriesData);
   } catch (err) {
@@ -52,7 +50,11 @@ router.post('/', async (req, res) => {
 router.put('/:id', async (req, res) => {
   // update a category by its `id` value
   try {
-    const categoryData = await Category.update(req.body.category_name);
+    const categoryData = await Category.update(req.body.category_name, 
+      { where: {
+      id: req.params.id,
+    },
+  });
     res.status(200).json(categoryData);
   } catch (err) {
     res.status(400).json(err);
