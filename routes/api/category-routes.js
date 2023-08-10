@@ -20,11 +20,10 @@ router.get('/:id', async (req, res) => {
   try {
     // find individual category, including associated products
     const categoryData = await Category.findByPk(req.params.id, {
-      // JOIN with product, using the ProductTag through table
-      // TODO - INCORRECT FORMATTING, BAD REQUEST
-      // include: [{ model: Product, through: ProductTag, as: 'individ_category' }]
-    });
-
+      // JOIN with product
+      include: [{ model: Product }]
+    })
+    
     if (!categoryData) {
       res.status(404).json({ message: 'No category found with this id!' });
       return;
@@ -46,12 +45,10 @@ router.post('/', async (req, res) => {
   }
 });
 
-// TODO Fix this as well, generatedMessage: false
-// something in the where statement? Now it's giving a 200 status but not updating...
 router.put('/:id', async (req, res) => {
   // update a category by its `id` value
   try {
-    const categoryData = await Category.update(req.body.category_name, 
+    const categoryData = await Category.update(req.body, 
       { where: {
       id: req.params.id,
     },
@@ -62,8 +59,18 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
   // delete a category by its `id` value
+  try {
+    const categoryData = await Category.destroy(
+      { where: {
+        id: req.params.id,
+      },
+    });
+      res.status(200).json(categoryData);
+  } catch (err) {
+    res.status(400).json(err);
+  }
 });
 
 module.exports = router;

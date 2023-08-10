@@ -18,10 +18,8 @@ Category.hasMany(Product, {
 
 // Products belongToMany Tags (through ProductTag)
 Product.belongsToMany(Tag, {
-  through: {
-    model: ProductTag,
-    unique: false
-  },
+  through: ProductTag,
+  foreignKey: "product_id"
   // TODO Add a "as: ____" if desired (reference the route here)
 })
 
