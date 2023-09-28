@@ -3,6 +3,8 @@
 ## Description
 This project was created for an e-Commerce company to be able to track their inventory using a SQL database. The user is able to track their goods by using lists of products, categories, and tags which from which they can add, update, or remove any items or values. (See the [Usage section](#usage) of this README for more.)
 
+This project allowed me to practice setting up a node server and query a SQL database using Sequelize. 
+
 Future iterations of this product would include a functional front-end to allow the user a simpler interface for their database. 
 
 ## Installation
